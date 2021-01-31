@@ -12,6 +12,7 @@ function App() {
 
   useEffect(() => {
     fetch(`https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&show-fields=thumbnail,headline,trailText&api-key=${API_KEY}`)
+    // fetch(`https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&show-fields=thumbnail,headline,trailText&api-key=${API_KEY}`)
       .then((x) => x.json())
       .then((x) => x.response)
       .then( x =>{

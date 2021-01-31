@@ -1,6 +1,11 @@
-import React from 'react'
+import React,{useState} from 'react'
 
-const Navbar = () => {
+const Navbar = ({searchText}) => {
+    const [text, setText] = useState('')
+    const onSubmit = (e) =>{
+        e.preventDefault();
+        searchText(text);
+    }
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,10 +37,12 @@ const Navbar = () => {
                     <a className="nav-link disabled" href="/" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <form className="d-flex ml-auto">
-                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
-                    <button className="btn btn-outline-success" type="submit">Search</button>
-                </form>
+                    
+                    <form onSubmit={onSubmit} className="d-flex ml-auto">
+                        <input onChange={e => setText(e.target.value)} className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    
                 </div>
             </div>
             </nav>

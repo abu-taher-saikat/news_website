@@ -6,9 +6,7 @@ import Navbar from "./component/Navbar";
 const API_KEY = "00ad7cf7-79de-494d-817a-9b425a0c5582";
 
 function App() {
-  const [cards, setCards] = useState()
   const [articles, setArticles] = useState({});
-  const [headline, setHeadline] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

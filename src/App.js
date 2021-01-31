@@ -1,49 +1,54 @@
-import { useEffect } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import "./App.css";
 import Card from './component/Card';
-import Navbar from './component/Navbar';
+import Navbar from "./component/Navbar";
 
+const API_KEY = "00ad7cf7-79de-494d-817a-9b425a0c5582";
 
 function App() {
+  const [cards, setCards] = useState()
+  const [articles, setArticles] = useState({});
+  const [headline, setHeadline] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-  // const [author, setAuthor] = useState({});
-  
-  // useEffect? 
   useEffect(() => {
-    // fetch("https://guardianmikilior1v1.p.rapidapi.com/getEditions", {
-    //   "method": "GET",
-    //   "headers": {
-    //     "content-type": "application/x-www-form-urlencoded",
-    //     "x-rapidapi-key": "d9e0e0c313mshd686b74b370640fp14ef0fjsna89bfd2fa447",
-    //     "x-rapidapi-host": "Guardianmikilior1V1.p.rapidapi.com"
-    //   }
-    // })
-    fetch("https://content.guardianapis.com/search?api-key=31e134fa-0070-4153-9494-59b5f83cc494")
-    .then(res=> res.json())
-    .then((news)=>{
-      // console.log(news.articles, news);
-      console.log(news);
-      // setAuthor(news.articles.map((x)=> setAuthor(x.author)));
-      // console.log(author);
-    })
-    .catch(err => console.log(err))
-  })
-  
+    fetch(`https://content.guardianapis.com/search?q=debate&tag=politics/politics&from-date=2014-01-01&show-fields=thumbnail,headline,trailText&api-key=${API_KEY}`)
+      .then((x) => x.json())
+      .then((x) => x.response)
+      .then( x =>{
+        setArticles(x.results)
+        setIsLoading(false);
+      })
+      .then(x => {
+        // setHeadline(articles.map(x => x.fields.headline));
+        // console.log('headline', headline);
+      })
+      .catch((err) => console.log(err))
+  },[]);
+
+
   return (
+    <React.Fragment>
+    <Navbar />
     <div className="container-fluid">
-        <Navbar></Navbar>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="row">
-                <Card></Card>
-                {/* <Card></Card>
-                <Card></Card>
-                <Card></Card> */}
-            </div>
-          </div>
-          <div className="col-md-4"></div>
+      <div className="row">
+        <div className="col-md-8">
+          {/* <div className="row"> */}
+            {isLoading ? <h1>loading...</h1> : <div className="row">
+              {articles.map(article=>(
+                <div className="col-md-4">
+                    <Card headline={article.fields.headline}></Card>                  
+                </div>
+              ))}
+              </div>}
+          {/* </div> */}
         </div>
+        <div className="col-md-4">
+          <h1>this is the sidebar section</h1>
+        </div>
+      </div>
     </div>
+    </React.Fragment>
   );
 }
 

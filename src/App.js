@@ -17,10 +17,6 @@ function App() {
         setArticles(x.results)
         setIsLoading(false);
       })
-      .then(x => {
-        // setHeadline(articles.map(x => x.fields.headline));
-        // console.log('headline', headline);
-      })
       .catch((err) => console.log(err))
   },[]);
 
@@ -28,14 +24,14 @@ function App() {
   return (
     <React.Fragment>
     <Navbar />
-    <div className="container-fluid">
+    <div className="container-fluid content__section">
       <div className="row">
         <div className="col-md-8">
-          {/* <div className="row"> */}
+          {console.log(articles)}
             {isLoading ? <h1>loading...</h1> : <div className="row">
               {articles.map(article=>(
                 <div className="col-md-4">
-                    <Card headline={article.fields.headline}></Card>                  
+                    <Card headline={article.fields.headline} thumbnail={article.fields.thumbnail}></Card>                  
                 </div>
               ))}
               </div>}

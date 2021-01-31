@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import "./App.css";
 import Card from './component/Card';
 import Navbar from "./component/Navbar";
+import Pagination from './component/Pagination';
 
 const API_KEY = "00ad7cf7-79de-494d-817a-9b425a0c5582";
 
@@ -42,6 +43,9 @@ function App() {
         </div>
       </div>
     </div>
+
+    {/* pagiantion */}
+    <Pagination></Pagination>
     </React.Fragment>
   );
 }
